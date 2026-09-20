@@ -1,0 +1,16 @@
+# 忽略 Qt 编译目录
+build*/
+debug/
+release/
+
+# 忽略 Qt Creator 的用户配置文件
+*.user
+*.user.*
+.qtcreator/
+
+# 忽略 Windows 系统文件
+Thumbs.db
+Desktop.ini
+
+# 忽略 Qt 自动生成的 UI 头文件
+ui_*.h
