@@ -46,8 +46,8 @@ void MainWindow::btnNumClicked()
     QPushButton *btn = qobject_cast<QPushButton *>(sender());
     if (!btn) return;
 
-    // 初始状态屏幕上是 "0"，此时按下的数字直接覆盖
-    if (operand == "0") {
+    // 初始的 "0" 只是占位符，出错后也允许重新输入，两种情况都直接覆盖
+    if (operand == "0" || operand == "Error") {
         operand = btn->text();
     } else {
         operand += btn->text();   // 否则追加到已有数字后面
@@ -87,6 +87,8 @@ void MainWindow::on_btnDel_clicked()
 void MainWindow::on_btnClear_clicked()
 {
     operand.clear();
+    operands.clear();             // 运算过程中断，两个栈一起清空
+    opcodes.clear();
     ui->display->setText("0");
 }
 
@@ -161,13 +163,18 @@ void MainWindow::on_btnEqual_clicked()
         operand.clear();
     }
 
-    bool ok = false;
-    QString res = calculation(&ok);
-    if (ok) {
+    // 连续运算可能积压了多组操作数和运算符，循环计算直到只剩一个结果
+    while (operands.size() >= 2 && !opcodes.isEmpty()) {
+        bool ok = false;
+        QString res = calculation(&ok);
+        if (!ok) {
+            ui->display->setText("Error");
+            operand = "Error";
+            operands.clear();
+            opcodes.clear();
+            return;                    // 出错就停下来，等待用户重新输入
+        }
         ui->display->setText(res);
-    } else {
-        ui->display->setText("Error");
-        operand = "Error";
     }
 }
 
@@ -195,9 +202,17 @@ QString MainWindow::calculation(bool *ok)
     } else if (op == "*" || op == "×") {
         result = operand1 * operand2;
     } else if (op == "/" || op == "÷") {
+        if (operand2 == 0) {           // 除数为 0 属于非法输入
+            if (ok) *ok = false;
+            return "Error";
+        }
         result = operand1 / operand2;
     }
 
     if (ok) *ok = true;
-    return QString::number(result, 'g', 10);
+
+    // 结果重新压回栈顶，为 "1+2+3" 这样的连续运算做准备
+    QString resStr = QString::number(result, 'g', 10);
+    operands.push(resStr);
+    return resStr;
 }
