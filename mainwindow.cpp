@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <math.h>
+#include <QtMath>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -18,6 +21,19 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnNum7, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
     connect(ui->btnNum8, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
     connect(ui->btnNum9, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
+
+    // 二元运算符
+    connect(ui->btnPlus, &QPushButton::clicked, this, &MainWindow::btnBinaryOperatorClicked);
+    connect(ui->btnMinus, &QPushButton::clicked, this, &MainWindow::btnBinaryOperatorClicked);
+    connect(ui->btnMultiply, &QPushButton::clicked, this, &MainWindow::btnBinaryOperatorClicked);
+    connect(ui->btnDivide, &QPushButton::clicked, this, &MainWindow::btnBinaryOperatorClicked);
+
+    // 一元运算符
+    connect(ui->btnPercentage, &QPushButton::clicked, this, &MainWindow::btnUnaryOperatorClicked);
+    connect(ui->btn1x, &QPushButton::clicked, this, &MainWindow::btnUnaryOperatorClicked);
+    connect(ui->btnSqure, &QPushButton::clicked, this, &MainWindow::btnUnaryOperatorClicked);
+    connect(ui->btnRoot, &QPushButton::clicked, this, &MainWindow::btnUnaryOperatorClicked);
+    connect(ui->btnPlusMinus, &QPushButton::clicked, this, &MainWindow::btnUnaryOperatorClicked);
 }
 
 MainWindow::~MainWindow()
@@ -72,4 +88,116 @@ void MainWindow::on_btnClear_clicked()
 {
     operand.clear();
     ui->display->setText("0");
+}
+
+void MainWindow::btnBinaryOperatorClicked()
+{
+    QPushButton *btn = qobject_cast<QPushButton *>(sender());
+    if (!btn) return;
+
+    // 先把当前输入的数字压栈，再清空 operand，准备接收下一个操作数
+    if (!operand.isEmpty()) {
+        operands.push(operand);
+        operand.clear();
+    }
+
+    opcodes.push(btn->text());
+
+    // 栈里已经有两个操作数时立刻计算，结果继续留在栈顶参与后续运算
+    if (operands.size() >= 2) {
+        bool ok = false;
+        QString res = calculation(&ok);
+        if (ok) {
+            ui->display->setText(res);
+        } else {
+            ui->display->setText("Error");
+            operand = "Error";
+        }
+    }
+}
+
+void MainWindow::btnUnaryOperatorClicked()
+{
+    // operand 为空时（刚算完或刚按过运算符），以屏幕上显示的数字为操作对象
+    QString current = (operand.isEmpty() || operand == "Error")
+                          ? ui->display->text() : operand;
+    if (current.isEmpty() || current == "Error")
+        return;
+
+    double result = current.toDouble();
+    QString op = qobject_cast<QPushButton *>(sender())->text();
+
+    if (op == "%") {
+        result /= 100.0;
+    } else if (op == "1/x") {
+        if (result == 0) {             // 0 不能做除数
+            ui->display->setText("Error");
+            operand = "Error";
+            return;
+        }
+        result = 1.0 / result;
+    } else if (op == "x^2") {
+        result *= result;
+    } else if (op == "√x") {
+        if (result < 0) {              // 负数不能开平方
+            ui->display->setText("Error");
+            operand = "Error";
+            return;
+        }
+        result = qSqrt(result);
+    } else if (op == "±") {
+        result = -result;
+    }
+
+    ui->display->setText(QString::number(result, 'g', 10));
+    operand.clear();   // 结果已经上屏，下次按数字重新开始输入
+}
+
+void MainWindow::on_btnEqual_clicked()
+{
+    // 把最后输入的数字也压入栈
+    if (!operand.isEmpty()) {
+        operands.push(operand);
+        operand.clear();
+    }
+
+    bool ok = false;
+    QString res = calculation(&ok);
+    if (ok) {
+        ui->display->setText(res);
+    } else {
+        ui->display->setText("Error");
+        operand = "Error";
+    }
+}
+
+QString MainWindow::calculation(bool *ok)
+{
+    if (operands.size() < 2 || opcodes.isEmpty()) {
+        if (ok) *ok = false;
+        return "0";
+    }
+
+    // 栈是后进先出，先弹出的才是右操作数
+    double operand2 = operands.top().toDouble();
+    operands.pop();
+    double operand1 = operands.top().toDouble();
+    operands.pop();
+
+    QString op = opcodes.top();
+    opcodes.pop();
+
+    double result = 0;
+    if (op == "+") {
+        result = operand1 + operand2;
+    } else if (op == "-") {
+        result = operand1 - operand2;
+    } else if (op == "*" || op == "×") {
+        result = operand1 * operand2;
+    } else if (op == "/" || op == "÷") {
+        result = operand1 / operand2;
+    }
+
+    if (ok) *ok = true;
+    return QString::number(result, 'g', 10);
 }
