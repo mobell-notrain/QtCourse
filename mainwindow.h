@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QString>
+#include <QPushButton>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,8 +17,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void btnNumClicked();
+    void on_btnPeriod_clicked();
+    void on_btnDel_clicked();
+    void on_btnClear_clicked();
+
 private:
     Ui::MainWindow *ui;
+
+    QString operand;            // 当前正在输入的数字字符串
 };
 
 #endif // MAINWINDOW_H
