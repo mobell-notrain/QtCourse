@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <math.h>
 #include <QtMath>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -41,6 +40,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+// ================= 数字输入 =================
 void MainWindow::btnNumClicked()
 {
     QPushButton *btn = qobject_cast<QPushButton *>(sender());
@@ -56,6 +56,7 @@ void MainWindow::btnNumClicked()
     ui->display->setText(operand);
 }
 
+// ================= 小数点输入 =================
 void MainWindow::on_btnPeriod_clicked()
 {
     // 一个操作数里只允许出现一个小数点
@@ -72,6 +73,7 @@ void MainWindow::on_btnPeriod_clicked()
     ui->display->setText(operand);
 }
 
+// ================= 退格 =================
 void MainWindow::on_btnDel_clicked()
 {
     if (operand.isEmpty()) return;
@@ -84,6 +86,7 @@ void MainWindow::on_btnDel_clicked()
     ui->display->setText(operand);
 }
 
+// ================= 清除 =================
 void MainWindow::on_btnClear_clicked()
 {
     operand.clear();
@@ -92,6 +95,7 @@ void MainWindow::on_btnClear_clicked()
     ui->display->setText("0");
 }
 
+// ================= 二元运算符 =================
 void MainWindow::btnBinaryOperatorClicked()
 {
     QPushButton *btn = qobject_cast<QPushButton *>(sender());
@@ -118,6 +122,7 @@ void MainWindow::btnBinaryOperatorClicked()
     }
 }
 
+// ================= 一元运算符 =================
 void MainWindow::btnUnaryOperatorClicked()
 {
     // operand 为空时（刚算完或刚按过运算符），以屏幕上显示的数字为操作对象
@@ -155,6 +160,7 @@ void MainWindow::btnUnaryOperatorClicked()
     operand.clear();   // 结果已经上屏，下次按数字重新开始输入
 }
 
+// ================= 等号 =================
 void MainWindow::on_btnEqual_clicked()
 {
     // 把最后输入的数字也压入栈
@@ -178,6 +184,7 @@ void MainWindow::on_btnEqual_clicked()
     }
 }
 
+// ================= 双操作数计算 =================
 QString MainWindow::calculation(bool *ok)
 {
     if (operands.size() < 2 || opcodes.isEmpty()) {

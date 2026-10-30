@@ -36,7 +36,15 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton {background-color: #202020;
+color: white; 
+}
+QPushButton:hover {
+    background-color: #4A4A4A; /* 比原色明显浅一点的灰色 */
+}
+QPushButton:pressed {
+    background-color: #1A1A1A; /* 按下时变得更暗，增加按压感 */
+}</string>
        </property>
        <property name="text">
         <string>/</string>
@@ -100,7 +108,15 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton {background-color: #202020;
+color: white; 
+}
+QPushButton:hover {
+    background-color: #4A4A4A; /* 比原色明显浅一点的灰色 */
+}
+QPushButton:pressed {
+    background-color: #1A1A1A; /* 按下时变得更暗，增加按压感 */
+}</string>
        </property>
        <property name="text">
         <string>1/x</string>
@@ -132,7 +148,15 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton {background-color: #202020;
+color: white; 
+}
+QPushButton:hover {
+    background-color: #4A4A4A; /* 比原色明显浅一点的灰色 */
+}
+QPushButton:pressed {
+    background-color: #1A1A1A; /* 按下时变得更暗，增加按压感 */
+}</string>
        </property>
        <property name="text">
         <string>CE</string>
@@ -148,7 +172,15 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton {background-color: #202020;
+color: white; 
+}
+QPushButton:hover {
+    background-color: #4A4A4A; /* 比原色明显浅一点的灰色 */
+}
+QPushButton:pressed {
+    background-color: #1A1A1A; /* 按下时变得更暗，增加按压感 */
+}</string>
        </property>
        <property name="text">
         <string>C</string>
@@ -164,7 +196,15 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton {background-color: #202020;
+color: white; 
+}
+QPushButton:hover {
+    background-color: #4A4A4A; /* 比原色明显浅一点的灰色 */
+}
+QPushButton:pressed {
+    background-color: #1A1A1A; /* 按下时变得更暗，增加按压感 */
+}</string>
        </property>
        <property name="text">
         <string>+</string>
@@ -228,7 +268,15 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton {background-color: #202020;
+color: white; 
+}
+QPushButton:hover {
+    background-color: #4A4A4A; /* 比原色明显浅一点的灰色 */
+}
+QPushButton:pressed {
+    background-color: #1A1A1A; /* 按下时变得更暗，增加按压感 */
+}</string>
        </property>
        <property name="text">
         <string>⌫</string>
@@ -260,7 +308,15 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton {background-color: #202020;
+color: white; 
+}
+QPushButton:hover {
+    background-color: #4A4A4A; /* 比原色明显浅一点的灰色 */
+}
+QPushButton:pressed {
+    background-color: #1A1A1A; /* 按下时变得更暗，增加按压感 */
+}</string>
        </property>
        <property name="text">
         <string>%</string>
@@ -292,7 +348,15 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton {background-color: #202020;
+color: white; 
+}
+QPushButton:hover {
+    background-color: #4A4A4A; /* 比原色明显浅一点的灰色 */
+}
+QPushButton:pressed {
+    background-color: #1A1A1A; /* 按下时变得更暗，增加按压感 */
+}</string>
        </property>
        <property name="text">
         <string>√x</string>
@@ -308,7 +372,15 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton {background-color: #202020;
+color: white; 
+}
+QPushButton:hover {
+    background-color: #4A4A4A; /* 比原色明显浅一点的灰色 */
+}
+QPushButton:pressed {
+    background-color: #1A1A1A; /* 按下时变得更暗，增加按压感 */
+}</string>
        </property>
        <property name="text">
         <string>x^2</string>
@@ -324,7 +396,15 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton {background-color: #202020;
+color: white; 
+}
+QPushButton:hover {
+    background-color: #4A4A4A; /* 比原色明显浅一点的灰色 */
+}
+QPushButton:pressed {
+    background-color: #1A1A1A; /* 按下时变得更暗，增加按压感 */
+}</string>
        </property>
        <property name="text">
         <string>×</string>
@@ -388,7 +468,15 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton {background-color: #202020;
+color: white; 
+}
+QPushButton:hover {
+    background-color: #4A4A4A; /* 比原色明显浅一点的灰色 */
+}
+QPushButton:pressed {
+    background-color: #1A1A1A; /* 按下时变得更暗，增加按压感 */
+}</string>
        </property>
        <property name="text">
         <string>=</string>
@@ -407,7 +495,7 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
@@ -426,7 +514,15 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton {background-color: #202020;
+color: white; 
+}
+QPushButton:hover {
+    background-color: #4A4A4A; /* 比原色明显浅一点的灰色 */
+}
+QPushButton:pressed {
+    background-color: #1A1A1A; /* 按下时变得更暗，增加按压感 */
+}</string>
        </property>
        <property name="text">
         <string>-</string>
