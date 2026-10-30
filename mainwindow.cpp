@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QKeyEvent>
 #include <QtMath>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -9,17 +10,20 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // 数字按键统一连接到同一个槽，通过 sender() 区分具体是哪个按钮
-    connect(ui->btnNum0, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
-    connect(ui->btnNum1, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
-    connect(ui->btnNum2, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
-    connect(ui->btnNum3, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
-    connect(ui->btnNum4, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
-    connect(ui->btnNum5, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
-    connect(ui->btnNum6, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
-    connect(ui->btnNum7, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
-    connect(ui->btnNum8, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
-    connect(ui->btnNum9, &QPushButton::clicked, this, &MainWindow::btnNumClicked);
+    // 键盘按键与数字按钮的映射表，鼠标点击和键盘按下复用同一套逻辑
+    btnNums = {{Qt::Key_0, ui->btnNum0},
+               {Qt::Key_1, ui->btnNum1},
+               {Qt::Key_2, ui->btnNum2},
+               {Qt::Key_3, ui->btnNum3},
+               {Qt::Key_4, ui->btnNum4},
+               {Qt::Key_5, ui->btnNum5},
+               {Qt::Key_6, ui->btnNum6},
+               {Qt::Key_7, ui->btnNum7},
+               {Qt::Key_8, ui->btnNum8},
+               {Qt::Key_9, ui->btnNum9}};
+
+    foreach (auto btn, btnNums)
+        connect(btn, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
 
     // 二元运算符
     connect(ui->btnPlus, &QPushButton::clicked, this, &MainWindow::btnBinaryOperatorClicked);
@@ -38,6 +42,20 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+// ================= 键盘输入 =================
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    // 键盘按键直接触发对应按钮的点击，鼠标与键盘共用同一套处理逻辑
+    foreach (auto key, btnNums.keys()) {
+        if (event->key() == key) {
+            btnNums[key]->animateClick();
+            return;
+        }
+    }
+
+    QMainWindow::keyPressEvent(event);   // 其余按键交回基类处理
 }
 
 // ================= 数字输入 =================
