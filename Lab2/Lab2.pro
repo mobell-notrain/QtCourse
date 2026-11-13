@@ -10,17 +10,20 @@ SOURCES += \
     AboutDialog.cpp \
     SearchDialog.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    replacedialog.cpp
 
 HEADERS += \
     AboutDialog.h \
     SearchDialog.h \
-    mainwindow.h
+    mainwindow.h \
+    replacedialog.h
 
 FORMS += \
     AboutDialog.ui \
     SearchDialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    replacedialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -96,3 +96,22 @@
   - 点“查找”（Ctrl+F）弹出查找对话框，默认选中“向下”
   - 点“取消”关闭对话框，主窗口不受影响
 - 备注：通过构造函数注入编辑区指针，比用全局变量或 findChild 更安全，也方便第 11 步的替换窗口复用同一思路。
+
+## 步骤 4 / 12：设计替换对话框
+
+- 目标：在查找对话框的基础上加“替换为”输入框和两个替换按钮，形成替换窗口的骨架。
+- 改动文件：
+  - `Lab2/Lab2.pro`
+  - `Lab2/mainwindow.cpp`
+  - `Lab2/mainwindow.h`
+  - `Lab2/replacedialog.h`
+  - `Lab2/replacedialog.ui`
+- 关键实现：
+  - ReplaceDialog.ui：searchText、targetText、rbUp/rbDown、cbCaseSensitive、btFindNext、btReplace、btAllReplace、btCancel
+  - ReplaceDialog.h / .cpp：与 SearchDialog 同构，新增 pTextEdit 成员
+  - mainwindow.ui 中 actionReplace 已存在于格式(&O) 菜单和工具栏，此步接上槽函数
+- 验证：
+  - Debug 构建通过
+  - 点“替换”弹出替换对话框，两个输入框与三个按钮布局正常
+  - 点“取消”正常关闭
+- 备注：替换窗口复制了查找窗口的布局再做扩展，代价是两个 .ui 有重复结构，但换来互不影响。另：replacedialog.h 里最初有两个拼错的槽声明（on_btRepalce_clicked / on_btAllRepalce_clicked），既没有对应实现、也不是按钮名，链接时 moc 报 undefined reference，已删除。
