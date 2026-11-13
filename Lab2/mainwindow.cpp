@@ -164,6 +164,36 @@ bool MainWindow::userEditConfirmed()
     return true;
 }
 
+void MainWindow::on_actionCopy_triggered()
+{
+    ui->textEdit->copy();
+}
+
+void MainWindow::on_actionPaste_triggered()
+{
+    ui->textEdit->paste();
+}
+
+void MainWindow::on_actionCutting_triggered()
+{
+    ui->textEdit->cut();
+}
+
+void MainWindow::on_actionBack_triggered()
+{
+    ui->textEdit->undo();
+}
+
+void MainWindow::on_actionNext_triggered()
+{
+    ui->textEdit->redo();
+}
+
+void MainWindow::on_actionAll_triggered()
+{
+    ui->textEdit->selectAll();
+}
+
 void MainWindow::on_actionExit_triggered()
 {
     if(userEditConfirmed())

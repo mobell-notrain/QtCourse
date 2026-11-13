@@ -133,3 +133,19 @@
   - 打开一个 txt 文件，内容载入、标题变为绝对路径；修改后再打开另一个文件会先提示保存
   - 另存为可选择新路径，保存后标题更新为新路径
 - 备注：userEditConfirmed() 返回 false 时所有调用点立即 return，保证“取消”真的能中止后续动作。
+
+## 步骤 6 / 12：处理撤销、恢复、剪切、复制、粘贴、全选操作
+
+- 目标：把编辑类动作接到 QPlainTextEdit 自带的编辑能力上，暂不处理按钮使能。
+- 改动文件：
+  - `Lab2/mainwindow.cpp`
+  - `Lab2/mainwindow.h`
+- 关键实现：
+  - on_actionBack_triggered → undo()，on_actionNext_triggered → redo()
+  - on_actionCopy_triggered / on_actionPaste_triggered / on_actionCutting_triggered
+  - on_actionAll_triggered → selectAll()
+- 验证：
+  - Debug 构建通过
+  - 输入文字后 Ctrl+Z 可撤销、Ctrl+Y（工具栏“恢复”）可重做
+  - 选中文本后剪切/复制/粘贴行为与系统快捷键一致，全选可选中全文
+- 备注：此时空文档也能点剪切/复制，属于下一步要解决的问题。

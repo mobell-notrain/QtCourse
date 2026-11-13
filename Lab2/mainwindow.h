@@ -34,6 +34,18 @@ private slots:
 
     void on_textEdit_textChanged();
 
+    void on_actionCopy_triggered();
+
+    void on_actionPaste_triggered();
+
+    void on_actionCutting_triggered();
+
+    void on_actionBack_triggered();
+
+    void on_actionNext_triggered();
+
+    void on_actionAll_triggered();
+
     void on_actionExit_triggered();
 
 private:
