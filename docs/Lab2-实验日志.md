@@ -55,3 +55,24 @@
   - 运行后显示空编辑器窗口，6 个菜单、工具栏 4 组按钮、状态栏齐全
   - 拖动窗口大小时编辑区跟随缩放（布局生效，非固定坐标）
 - 备注：此时 22 个 Action 只有界面没有槽函数，点下去不会有反应，属于本步的预期状态。
+
+## 步骤 2 / 12：设计关于对话框
+
+- 目标：多窗口程序的第一个独立窗口：用 Designer 新建 Dialog 表单，并在主窗口里以模态方式打开。
+- 改动文件：
+  - `Lab2/AboutDialog.cpp`
+  - `Lab2/AboutDialog.h`
+  - `Lab2/AboutDialog.ui`
+  - `Lab2/Lab2.pro`
+  - `Lab2/mainwindow.cpp`
+  - `Lab2/mainwindow.h`
+- 关键实现：
+  - AboutDialog.ui：label（标题）、label_2/3/4（开发者、学号、邮箱）、label_6（版本号）、buttonBox
+  - AboutDialog.h / AboutDialog.cpp：构造函数只调用 ui->setupUi(this)
+  - mainwindow.ui 的 actionAbout 对应帮助(&H) 菜单与工具栏末尾的“关于”按钮
+  - MainWindow 增加槽 on_actionAbout_triggered，用栈上对象 dlg.exec() 打开
+- 验证：
+  - Debug 构建通过
+  - 点“关于”弹出模态对话框，主窗口在对话框关闭前不可操作
+  - 关闭对话框后主窗口编辑区仍可正常输入
+- 备注：对话框用栈上对象而不是 new，避免忘记 delete 造成泄漏。
