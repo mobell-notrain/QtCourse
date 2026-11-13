@@ -165,3 +165,20 @@
   - 改字体后输入文字按新字体显示；字体颜色、背景色改完立即生效
   - 关闭“换行”后长行出现横向滚动条，再打开又回到按窗口宽度折行，菜单勾选与之一致
 - 备注：注意 on_actionWrap_triggered 里 checked 的取值与最终模式要对上，否则菜单状态会和实际相反。
+
+## 步骤 8 / 12：设置显示、隐藏工具栏、状态栏，更新状态栏信息
+
+- 目标：查看菜单能真正显示/隐藏工具栏和状态栏，同时状态栏要实时显示字数、行数、光标行列。
+- 改动文件：
+  - `Lab2/mainwindow.cpp`
+  - `Lab2/mainwindow.h`
+- 关键实现：
+  - 构造函数里两条 connect 把 toggled 信号接到 setVisible
+  - statusLabel 显示长度与行数；lengthLabel 显示 Ln/Col；author 显示作者
+  - 光标位置用 textCursor().position() 拿到偏移，再数一遍 '\n' 得到行号，列号 = pos - 上一个换行位置 - 1
+  - 排错记录：编译能过，一运行就 terminated abnormally，Debug 断点停在 lengthLabel->setText 那一行，原因是构造函数还没 new 出 lengthLabel，光标信号先到了；改为 nullptr 初始化 + 判空后正常
+- 验证：
+  - Debug 构建通过，启动不再崩溃
+  - 取消勾选“工具栏”/“状态栏”，对应区域消失，再勾选恢复
+  - 输入文字时状态栏字数/行数实时变化；移动光标时 Ln/Col 跟随
+- 备注：这一条是实验报告“实验总结”里的第 1 个 bug，修复方式与原报告一致。

@@ -15,8 +15,24 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    connect(ui->actionStatusBar, &QAction::toggled, ui->statusbar, &QStatusBar::setVisible);
+    connect(ui->actionToolBar, &QAction::toggled, ui->toolBar, &QToolBar::setVisible);
+
     textChanged = false;
     on_actionNew_triggered();
+
+    statusLabel.setMaximumWidth(150);
+    statusLabel.setText("lenth:"+QString::number(0)+"   lines:"+QString::number(1));
+    ui->statusbar->addPermanentWidget(&statusLabel);
+
+    lengthLabel = new QLabel(this);
+    lengthLabel->setMaximumWidth(150);
+    lengthLabel->setText("Ln:"+QString::number(0)+"  Col:"+QString::number(1));
+    ui->statusbar->addPermanentWidget(lengthLabel);
+
+    QLabel *author = new QLabel(ui->statusbar);
+    author->setText("liyuanhao");
+    ui->statusbar->addPermanentWidget(author);
 
     QPlainTextEdit::LineWrapMode mode = ui->textEdit->lineWrapMode();
 
@@ -146,6 +162,10 @@ void MainWindow::on_textEdit_textChanged()
         this->setWindowTitle("*"+this->windowTitle());
         textChanged= true;
     }
+
+    statusLabel.setText("lenth:"+QString::number(ui->textEdit->toPlainText().length())+
+                        "   lines:"+QString::number(ui->textEdit->document()->lineCount()));
+
 }
 
 bool MainWindow::userEditConfirmed()
@@ -243,6 +263,16 @@ void MainWindow::on_actionSize_triggered()
         ui->textEdit->setFont(font);
 }
 
+void MainWindow::on_actionStatusBar_triggered()
+{
+
+}
+
+void MainWindow::on_actionToolBar_triggered()
+{
+
+}
+
 void MainWindow::on_actionAll_triggered()
 {
     ui->textEdit->selectAll();
@@ -252,4 +282,27 @@ void MainWindow::on_actionExit_triggered()
 {
     if(userEditConfirmed())
         exit(0);
+}
+
+void MainWindow::on_textEdit_cursorPositionChanged()
+{
+    int col = 0;
+    int ln = 0;
+    int flg = -1;
+    int pos = ui->textEdit->textCursor().position();
+    QString text = ui->textEdit->toPlainText();
+
+    for (int i = 0; i < pos; i++) {
+        if ( text[i] == '\n' ) {
+            ln ++;
+            flg = i;
+        }
+    }
+
+    flg ++;
+    col = pos - flg;
+
+    if (lengthLabel != nullptr) {
+        lengthLabel->setText("Ln:" + QString::number(ln + 1) + "  Col:" + QString::number(col + 1));
+    }
 }

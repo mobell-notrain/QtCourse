@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -54,15 +55,24 @@ private slots:
 
     void on_actionSize_triggered();
 
+    void on_actionStatusBar_triggered();
+
+    void on_actionToolBar_triggered();
+
     void on_actionAll_triggered();
 
     void on_actionExit_triggered();
 
+    void on_textEdit_cursorPositionChanged();
+
 private:
     Ui::MainWindow *ui;
 
+    QLabel statusCursorLabel;
+    QLabel statusLabel;
     QString filePath;
     bool textChanged;
+    QLabel *lengthLabel = nullptr;
 
     bool userEditConfirmed();
 };
