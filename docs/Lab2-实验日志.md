@@ -115,3 +115,21 @@
   - 点“替换”弹出替换对话框，两个输入框与三个按钮布局正常
   - 点“取消”正常关闭
 - 备注：替换窗口复制了查找窗口的布局再做扩展，代价是两个 .ui 有重复结构，但换来互不影响。另：replacedialog.h 里最初有两个拼错的槽声明（on_btRepalce_clicked / on_btAllRepalce_clicked），既没有对应实现、也不是按钮名，链接时 moc 报 undefined reference，已删除。
+
+## 步骤 5 / 12：处理新建文件、另存文件、保存文件、打开文件操作
+
+- 目标：实现文件的读写闭环，并在“有未保存修改”时拦截新建、打开、退出、关闭这几个危险操作。
+- 改动文件：
+  - `Lab2/mainwindow.cpp`
+  - `Lab2/mainwindow.h`
+- 关键实现：
+  - MainWindow 新增 filePath / textChanged 成员，构造函数里 textChanged = false 后调用一次 on_actionNew_triggered()
+  - 四个文件动作都走 QFileDialog + QFile + QTextStream
+  - userEditConfirmed() 用 QMessageBox 三按钮（Yes/No/Cancel），Yes 时复用 on_actionSave_triggered()
+  - 窗口标题随脏标记加 "*"，保存或打开后清掉脏标记
+- 验证：
+  - Debug 构建通过
+  - 新建 → 输入文字 → 标题出现 "*" → 关闭窗口弹保存提示
+  - 打开一个 txt 文件，内容载入、标题变为绝对路径；修改后再打开另一个文件会先提示保存
+  - 另存为可选择新路径，保存后标题更新为新路径
+- 备注：userEditConfirmed() 返回 false 时所有调用点立即 return，保证“取消”真的能中止后续动作。

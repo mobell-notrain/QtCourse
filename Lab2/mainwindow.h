@@ -24,7 +24,24 @@ private slots:
 
     void on_actionReplace_triggered();
 
+    void on_actionNew_triggered();
+
+    void on_actionOpen_triggered();
+
+    void on_actionSave_triggered();
+
+    void on_actionA_triggered();
+
+    void on_textEdit_textChanged();
+
+    void on_actionExit_triggered();
+
 private:
     Ui::MainWindow *ui;
+
+    QString filePath;
+    bool textChanged;
+
+    bool userEditConfirmed();
 };
 #endif // MAINWINDOW_H
