@@ -149,3 +149,19 @@
   - 输入文字后 Ctrl+Z 可撤销、Ctrl+Y（工具栏“恢复”）可重做
   - 选中文本后剪切/复制/粘贴行为与系统快捷键一致，全选可选中全文
 - 备注：此时空文档也能点剪切/复制，属于下一步要解决的问题。
+
+## 步骤 7 / 12：设置字体、字体颜色、背景色、自动换行操作
+
+- 目标：让格式菜单真正生效：字号字体、字体颜色、编辑器背景色、自动换行开关。
+- 改动文件：
+  - `Lab2/mainwindow.cpp`
+  - `Lab2/mainwindow.h`
+- 关键实现：
+  - QFontDialog / QColorDialog 取用户输入，取消时 ok / color.isValid() 为 false，直接返回
+  - 颜色用样式表只作用于 QPlainTextEdit，不影响菜单栏与工具栏
+  - 换行开关维护 QPlainTextEdit::LineWrapMode，并把 actionWrap 的 checked 状态同步成“当前是否换行”
+- 验证：
+  - Debug 构建通过
+  - 改字体后输入文字按新字体显示；字体颜色、背景色改完立即生效
+  - 关闭“换行”后长行出现横向滚动条，再打开又回到按窗口宽度折行，菜单勾选与之一致
+- 备注：注意 on_actionWrap_triggered 里 checked 的取值与最终模式要对上，否则菜单状态会和实际相反。

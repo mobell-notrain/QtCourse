@@ -44,6 +44,16 @@ private slots:
 
     void on_actionNext_triggered();
 
+    void on_actionFontColor_triggered();
+
+    void on_actionBackgroundColor_triggered();
+
+    void on_actionFontBackgroundColor_triggered();
+
+    void on_actionWrap_triggered();
+
+    void on_actionSize_triggered();
+
     void on_actionAll_triggered();
 
     void on_actionExit_triggered();
