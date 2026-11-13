@@ -34,6 +34,11 @@ MainWindow::MainWindow(QWidget *parent)
     author->setText("liyuanhao");
     ui->statusbar->addPermanentWidget(author);
 
+    ui->actionCopy->setEnabled(false);
+    ui->actionCutting->setEnabled(false);
+    ui->actionBack->setEnabled(false);
+    ui->actionNext->setEnabled(false);
+
     QPlainTextEdit::LineWrapMode mode = ui->textEdit->lineWrapMode();
 
     if ( mode == QPlainTextEdit::NoWrap ) {
@@ -219,6 +224,26 @@ void MainWindow::on_actionBack_triggered()
 void MainWindow::on_actionNext_triggered()
 {
     ui->textEdit->redo();
+}
+
+void MainWindow::on_textEdit_copyAvailable(bool b)
+{
+    ui->actionCopy->setEnabled(b);
+    ui->actionCutting->setEnabled(b);
+
+
+}
+
+void MainWindow::on_textEdit_redoAvailable(bool b)
+{
+    ui->actionNext->setEnabled(b);
+
+}
+
+void MainWindow::on_textEdit_undoAvailable(bool b)
+{
+    ui->actionBack->setEnabled(b);
+
 }
 
 void MainWindow::on_actionFontColor_triggered()
