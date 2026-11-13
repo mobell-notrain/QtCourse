@@ -1,0 +1,27 @@
+# 构建输出
+Lab2/build/
+/build/
+/build-*/
+*.o
+*.obj
+*.a
+*.exe
+*.dll
+*.debug
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+Makefile*
+.qmake.stash
+.qmake.cache
+
+# Qt Creator 生成
+*.pro.user
+*.pro.user.*
+Lab2/.qtcreator/
+/.qtcreator/
+CMakeLists.txt.user*
+
+# 系统文件
+Thumbs.db
+.DS_Store

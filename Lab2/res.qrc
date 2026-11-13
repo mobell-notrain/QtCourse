@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../RES/new.png</file>
+        <file>../RES/back.png</file>
+        <file>../RES/copy.png</file>
+        <file>../RES/cutting.png</file>
+        <file>../RES/fileconversion.png</file>
+        <file>../RES/next.png</file>
+        <file>../RES/openfile.png</file>
+        <file>../RES/save.png</file>
+        <file>../RES/paste.png</file>
+        <file>../RES/all.png</file>
+        <file>../RES/find.png</file>
+        <file>../RES/tool.png</file>
+        <file>../RES/wrap.png</file>
+        <file>../RES/zhuangtai.png</file>
+        <file>../RES/ziti.png</file>
+    </qresource>
+</RCC>
