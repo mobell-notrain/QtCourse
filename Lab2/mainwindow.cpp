@@ -61,17 +61,20 @@ void MainWindow::on_actionAbout_triggered()
     dlg.exec();
 }
 
+
 void MainWindow::on_actionFind_triggered()
 {
     SearchDialog dlg(this,ui->textEdit);
     dlg.exec();
 }
 
+
 void MainWindow::on_actionReplace_triggered()
 {
     ReplaceDialog dlg(this,ui->textEdit);
     dlg.exec();
 }
+
 
 void MainWindow::on_actionNew_triggered()
 {
@@ -84,6 +87,7 @@ void MainWindow::on_actionNew_triggered()
 
     textChanged = false;
 }
+
 
 void MainWindow::on_actionOpen_triggered()
 {
@@ -107,6 +111,7 @@ void MainWindow::on_actionOpen_triggered()
 
     textChanged = false;
 }
+
 
 void MainWindow::on_actionSave_triggered()
 {
@@ -140,6 +145,7 @@ void MainWindow::on_actionSave_triggered()
     textChanged = false;
 }
 
+
 void MainWindow::on_actionA_triggered()
 {
     QString filename=
@@ -160,6 +166,7 @@ void MainWindow::on_actionA_triggered()
 
     this->setWindowTitle(QFileInfo(filePath).absoluteFilePath());
 }
+
 
 void MainWindow::on_textEdit_textChanged()
 {
@@ -201,30 +208,36 @@ bool MainWindow::userEditConfirmed()
     return true;
 }
 
+
 void MainWindow::on_actionCopy_triggered()
 {
     ui->textEdit->copy();
 }
+
 
 void MainWindow::on_actionPaste_triggered()
 {
     ui->textEdit->paste();
 }
 
+
 void MainWindow::on_actionCutting_triggered()
 {
     ui->textEdit->cut();
 }
+
 
 void MainWindow::on_actionBack_triggered()
 {
     ui->textEdit->undo();
 }
 
+
 void MainWindow::on_actionNext_triggered()
 {
     ui->textEdit->redo();
 }
+
 
 void MainWindow::on_textEdit_copyAvailable(bool b)
 {
@@ -234,17 +247,20 @@ void MainWindow::on_textEdit_copyAvailable(bool b)
 
 }
 
+
 void MainWindow::on_textEdit_redoAvailable(bool b)
 {
     ui->actionNext->setEnabled(b);
 
 }
 
+
 void MainWindow::on_textEdit_undoAvailable(bool b)
 {
     ui->actionBack->setEnabled(b);
 
 }
+
 
 void MainWindow::on_actionFontColor_triggered()
 {
@@ -254,6 +270,7 @@ void MainWindow::on_actionFontColor_triggered()
     }
 }
 
+
 void MainWindow::on_actionBackgroundColor_triggered()
 {
     QColor color = QColorDialog::getColor(Qt::black,this,"选择颜色");
@@ -262,10 +279,12 @@ void MainWindow::on_actionBackgroundColor_triggered()
     }
 }
 
+
 void MainWindow::on_actionFontBackgroundColor_triggered()
 {
 
 }
+
 
 void MainWindow::on_actionWrap_triggered()
 {
@@ -279,6 +298,7 @@ void MainWindow::on_actionWrap_triggered()
         ui->actionWrap->setChecked(false);
     }
 }
+
 
 void MainWindow::on_actionSize_triggered()
 {
@@ -298,16 +318,19 @@ void MainWindow::on_actionToolBar_triggered()
 
 }
 
+
 void MainWindow::on_actionAll_triggered()
 {
     ui->textEdit->selectAll();
 }
+
 
 void MainWindow::on_actionExit_triggered()
 {
     if(userEditConfirmed())
         exit(0);
 }
+
 
 void MainWindow::on_textEdit_cursorPositionChanged()
 {
@@ -331,3 +354,12 @@ void MainWindow::on_textEdit_cursorPositionChanged()
         lengthLabel->setText("Ln:" + QString::number(ln + 1) + "  Col:" + QString::number(col + 1));
     }
 }
+
+
+void MainWindow::on_actionShowLineNumber_triggered()
+{
+    bool shouldHide = !ui->actionShowLineNumber->isChecked();
+
+    ui->textEdit->hideLineNumberArea(shouldHide);
+}
+

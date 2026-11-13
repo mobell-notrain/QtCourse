@@ -8,6 +8,7 @@ CONFIG += c++17
 
 SOURCES += \
     AboutDialog.cpp \
+    CodeEditor.cpp \
     SearchDialog.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -15,6 +16,7 @@ SOURCES += \
 
 HEADERS += \
     AboutDialog.h \
+    CodeEditor.h \
     SearchDialog.h \
     mainwindow.h \
     replacedialog.h

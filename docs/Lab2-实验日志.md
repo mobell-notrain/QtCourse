@@ -231,3 +231,26 @@
   - 点“全部替换”，文本中所有匹配都被替换，按一次 Ctrl+Z 全部还原
   - 替换后光标位置回到操作前的位置，不会跳到文首
 - 备注：这一条对应实验报告“与AI的交互”里记录的“全部替换破坏撤销栈”问题。
+
+## 步骤 12 / 12：从 QPlainTextEdit 派生 CodeEditor 支持行号，并用提升控件替换
+
+- 目标：选做项：给编辑器加行号栏，并且按参考资料 3 的做法用“提升控件”替换掉原来的 QPlainTextEdit。
+- 改动文件：
+  - `Lab2/CodeEditor.cpp`
+  - `Lab2/CodeEditor.h`
+  - `Lab2/Lab2.pro`
+  - `Lab2/mainwindow.cpp`
+  - `Lab2/mainwindow.h`
+  - `Lab2/mainwindow.ui`
+- 关键实现：
+  - CodeEditor.h：嵌套类 LineNumberArea 直接内联实现 sizeHint 与 paintEvent
+  - CodeEditor.cpp：lineNumberAreaWidth / updateLineNumberAreaWidth / updateLineNumberArea / resizeEvent / highlightCurrentLine / lineNumberAreaPaintEvent
+  - mainwindow.ui：customwidgets 声明 CodeEditor，textEdit 的 class 从 QPlainTextEdit 改为 CodeEditor，新增 checkable 的 actionShowLineNumber 放到格式菜单与工具栏
+  - MainWindow::on_actionShowLineNumber_triggered：按勾选状态调用 hideLineNumberArea
+  - 排错记录：只调用 lineNumberArea->hide() 时，行号消失但左侧留白还在，滚动一下才恢复正常；原因是 setViewportMargins 没跟着更新，改为显隐后主动重算边距
+- 验证：
+  - Debug 构建通过
+  - 启动即显示行号，行号与文本行对齐，滚动时同步滚动
+  - 当前行整行高亮
+  - 取消勾选“显示行号”后行号与左侧留白一起消失，再次勾选恢复
+- 备注：这一条对应实验报告“实验总结”里的第 2 个 bug，也是实验内容中的选做项。
