@@ -76,3 +76,23 @@
   - 点“关于”弹出模态对话框，主窗口在对话框关闭前不可操作
   - 关闭对话框后主窗口编辑区仍可正常输入
 - 备注：对话框用栈上对象而不是 new，避免忘记 delete 造成泄漏。
+
+## 步骤 3 / 12：设计查找对话框
+
+- 目标：用 Designer 设计查找对话框，并解决“对话框怎么拿到要搜索的编辑区”这个问题。
+- 改动文件：
+  - `Lab2/Lab2.pro`
+  - `Lab2/SearchDialog.h`
+  - `Lab2/SearchDialog.ui`
+  - `Lab2/mainwindow.cpp`
+  - `Lab2/mainwindow.h`
+- 关键实现：
+  - SearchDialog.ui：搜索框 + 方向单选 + 区分大小写复选框 + 查找下一个/取消按钮
+  - SearchDialog.h：新增成员 QPlainTextEdit *pTextEdit，构造函数第二个参数默认 nullptr
+  - MainWindow 增加槽 on_actionFind_triggered，把 ui->textEdit 传进去
+  - 此步 on_btFindNext_clicked 为空实现，on_btCancel_clicked 直接 accept()
+- 验证：
+  - Debug 构建通过
+  - 点“查找”（Ctrl+F）弹出查找对话框，默认选中“向下”
+  - 点“取消”关闭对话框，主窗口不受影响
+- 备注：通过构造函数注入编辑区指针，比用全局变量或 findChild 更安全，也方便第 11 步的替换窗口复用同一思路。

@@ -8,15 +8,18 @@ CONFIG += c++17
 
 SOURCES += \
     AboutDialog.cpp \
+    SearchDialog.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     AboutDialog.h \
+    SearchDialog.h \
     mainwindow.h
 
 FORMS += \
     AboutDialog.ui \
+    SearchDialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.
